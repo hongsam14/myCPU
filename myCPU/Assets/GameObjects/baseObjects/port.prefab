@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 2667773396269000184}
   - component: {fileID: 2667773396269000187}
   - component: {fileID: 2667773396269000186}
-  - component: {fileID: 8187866287617980404}
+  - component: {fileID: 6563712220487201949}
   m_Layer: 0
   m_Name: port
   m_TagString: Untagged
@@ -277,18 +277,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2667773396269000180}
   m_CullTransparentMesh: 1
---- !u!114 &8187866287617980404
-MonoBehaviour:
+--- !u!61 &6563712220487201949
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2667773396269000180}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f627223abe0814717bc66f8cf73bcadd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: gate
-  port_num: 2
-  input_port: []
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
