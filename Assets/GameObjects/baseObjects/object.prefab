@@ -190,7 +190,6 @@ GameObject:
   - component: {fileID: 4095717654849667684}
   - component: {fileID: 4095717654849667687}
   - component: {fileID: 4095717654849667686}
-  - component: {fileID: 7814336086806106216}
   m_Layer: 0
   m_Name: object
   m_TagString: Untagged
@@ -277,16 +276,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4095717654849667688}
   m_CullTransparentMesh: 1
---- !u!114 &7814336086806106216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4095717654849667688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f627223abe0814717bc66f8cf73bcadd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _name: gate
