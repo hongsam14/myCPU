@@ -161,7 +161,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2667773395002810027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 2667773396269000187}
   - component: {fileID: 2667773396269000186}
   - component: {fileID: 6563712220487201949}
+  - component: {fileID: 4556385184379102860}
   m_Layer: 0
   m_Name: port
   m_TagString: Untagged
@@ -303,3 +304,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4556385184379102860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2667773396269000180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd15b95a553d4454a2384b4947cf90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
