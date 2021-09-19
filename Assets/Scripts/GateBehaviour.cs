@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
+
 public class GateBehaviour : MonoBehaviour
 {
     /// <summary>
@@ -27,6 +29,14 @@ public class GateBehaviour : MonoBehaviour
 
     public void Switch_Color(bool bit)
     {
-        spriteRenderer.color = bit ? Color.yellow : Color.grey;
+        switch (bit)
+        {
+            case true:
+                spriteRenderer.color = Color.yellow;
+                break;
+            case false:
+                spriteRenderer.color = Color.grey;
+                break;
+        }
     }
 }
