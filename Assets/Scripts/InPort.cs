@@ -7,10 +7,31 @@ using UnityEngine;
 public class InPort:MonoBehaviour
 {
     public bool bit;
+    private OutPort contect;
+    private bool connect = false;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        OutPort contect = collision.GetComponent<OutPort>();
-        this.bit = contect.bit;
+        if (!contect)
+            contect = collision.GetComponent<OutPort>();
+        if (!connect)
+            connect = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        connect = false;
+        contect = null;
+    }
+
+    private void Start()
+    {
+        InvokeRepeating("Runtime", 1f, 1f);
+    }
+
+    private void Runtime()
+    {
+        if (connect)
+            bit = contect.bit;
     }
 }
