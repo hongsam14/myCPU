@@ -27,7 +27,7 @@ public class GateBehaviour : MonoBehaviour
     {
     }
 
-    public void Switch_Color(bool bit)
+    protected void Switch_Color(bool bit)
     {
         switch (bit)
         {

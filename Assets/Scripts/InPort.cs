@@ -8,20 +8,17 @@ public class InPort:MonoBehaviour
 {
     public bool bit;
     private OutPort contect;
-    private bool connect = false;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!contect)
             contect = collision.GetComponent<OutPort>();
-        if (!connect)
-            connect = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        connect = false;
         contect = null;
+        bit = false;
     }
 
     private void Start()
@@ -31,7 +28,7 @@ public class InPort:MonoBehaviour
 
     private void Runtime()
     {
-        if (connect)
+        if (contect)
             bit = contect.bit;
     }
 }
