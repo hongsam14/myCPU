@@ -9,12 +9,20 @@ public class GateBehaviour : MonoBehaviour
     /// <summary>
     /// Gate 오브젝트의 동작을 구현한 클래스.
     /// </summary>
+    private SpriteRenderer spriteRenderer;
+
     [SerializeField]
     protected InPort[] in_port;
     [SerializeField]
     protected OutPort[] out_port;
-
-    private SpriteRenderer spriteRenderer;
+    protected Color color
+    {
+        get => spriteRenderer.color;
+        set
+        {
+            spriteRenderer.color = value;
+        }
+    }
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -25,18 +33,5 @@ public class GateBehaviour : MonoBehaviour
 
     protected virtual void Runtime()
     {
-    }
-
-    protected void Switch_Color(bool bit)
-    {
-        switch (bit)
-        {
-            case true:
-                spriteRenderer.color = Color.yellow;
-                break;
-            case false:
-                spriteRenderer.color = Color.grey;
-                break;
-        }
     }
 }

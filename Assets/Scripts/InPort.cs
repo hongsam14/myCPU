@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(BoxCollider2D))]
 
-public class InPort:MonoBehaviour
+public class InPort : MonoBehaviour, IPointerClickHandler
 {
     public bool bit;
     private OutPort contect;
@@ -13,6 +14,7 @@ public class InPort:MonoBehaviour
     {
         if (!contect)
             contect = collision.GetComponent<OutPort>();
+        bit = contect.bit;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -21,14 +23,9 @@ public class InPort:MonoBehaviour
         bit = false;
     }
 
-    private void Start()
+    public void OnPointerClick(PointerEventData pointerEventData)
     {
-        InvokeRepeating("Runtime", 1f, 1f);
-    }
-
-    private void Runtime()
-    {
-        if (contect)
-            bit = contect.bit;
+        Debug.Log("click");
+        bit = !bit;
     }
 }

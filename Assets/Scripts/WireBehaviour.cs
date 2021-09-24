@@ -7,12 +7,23 @@ using UnityEngine;
 public class WireBehaviour : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-
     private float pos_x = 0f;
     private Color p_color = Color.white;
 
     public Transform dest;
-    public Color color { private get; set; }
+    public Color color
+    {
+        get => lineRenderer.endColor;
+        set
+        {
+            if (value != p_color)
+            {
+                lineRenderer.startColor = value;
+                lineRenderer.endColor = value;
+                p_color = value;
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +32,6 @@ public class WireBehaviour : MonoBehaviour
         lineRenderer.positionCount = 4;
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;
-
         color = Color.gray;
     }
 
@@ -36,18 +46,6 @@ public class WireBehaviour : MonoBehaviour
             lineRenderer.SetPosition(2, new Vector3(x, dest.position.y, 0));
             lineRenderer.SetPosition(3, dest.position);
             pos_x = x;
-        }
-
-        SetLineColor();
-    }
-
-    private void SetLineColor()
-    {
-        if (color != p_color)
-        {
-            lineRenderer.startColor = color;
-            lineRenderer.endColor = color;
-            p_color = color;
         }
     }
 }

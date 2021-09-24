@@ -12,4 +12,17 @@ public class And_Gate : GateBehaviour
         Switch_Color(out_port[0].bit);
         base.Runtime();
     }
+
+    private void Switch_Color(bool bit)
+    {
+        switch (bit)
+        {
+            case true:
+                base.color = Color.yellow;
+                break;
+            case false:
+                base.color = Color.grey;
+                break;
+        }
+    }
 }
