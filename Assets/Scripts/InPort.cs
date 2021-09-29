@@ -7,25 +7,25 @@ using UnityEngine.EventSystems;
 
 public class InPort : MonoBehaviour, IPointerClickHandler
 {
-    public bool bit;
-    private OutPort contect;
-
-    private void OnTriggerStay2D(Collider2D collision)
+    private bool val = false;
+    public OutPort contect;
+    public bool bit
     {
-        if (!contect)
-            contect = collision.GetComponent<OutPort>();
-        bit = contect.bit;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        contect = null;
-        bit = false;
+        get
+        {
+            if (!contect)
+                return val;
+            return contect.bit;
+        }
+        set
+        {
+            val = value;
+        }
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         Debug.Log("click");
-        bit = !bit;
+        val = !val;
     }
 }

@@ -10,11 +10,12 @@ public class GateBehaviour : MonoBehaviour
     /// Gate 오브젝트의 동작을 구현한 클래스.
     /// </summary>
     private SpriteRenderer spriteRenderer;
-
     [SerializeField]
-    protected InPort[] in_port;
+    private InPort[] in_port;
     [SerializeField]
-    protected OutPort[] out_port;
+    private OutPort[] out_port;
+    protected bool input_val(int idx) => in_port[idx].bit;
+    protected bool output_val(int idx, bool val) => out_port[idx].bit = val;
     protected Color color
     {
         get => spriteRenderer.color;

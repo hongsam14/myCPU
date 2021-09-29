@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class And_Gate : GateBehaviour
 {
-    public bool output(bool a, bool b) => a & b;
-
     protected override void Runtime()
     {
-        base.out_port[0].bit = output(base.in_port[0].bit, base.in_port[1].bit);
-        Switch_Color(out_port[0].bit);
         base.Runtime();
+        bool value = input_val(0) & input_val(1);
+        output_val(0, value);
+        Switch_Color(value);
     }
 
     private void Switch_Color(bool bit)
@@ -18,10 +17,10 @@ public class And_Gate : GateBehaviour
         switch (bit)
         {
             case true:
-                base.color = Color.yellow;
+                color = Color.yellow;
                 break;
             case false:
-                base.color = Color.grey;
+                color = Color.grey;
                 break;
         }
     }
