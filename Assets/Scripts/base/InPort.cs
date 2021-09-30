@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class InPort : MonoBehaviour, IPointerClickHandler
 {
     private bool val = false;
-    public OutPort contect;
+    private OutPort contect;
     public bool bit
     {
         get
@@ -21,6 +21,17 @@ public class InPort : MonoBehaviour, IPointerClickHandler
         {
             val = value;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        contect = collision.GetComponent<OutPort>();
+        Debug.Log("contect");
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        contect = null;
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)

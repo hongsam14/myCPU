@@ -30,8 +30,8 @@ public class WireBehaviour : MonoBehaviour
     {
         lineRenderer = transform.GetComponent<LineRenderer>();
         lineRenderer.positionCount = 4;
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
         color = Color.gray;
     }
 
