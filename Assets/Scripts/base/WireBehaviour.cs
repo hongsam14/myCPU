@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-
+[ExecuteInEditMode]
 public class WireBehaviour : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    private float pos_x = 0f;
+    private Vector3 pos_x = Vector3.zero;
     private Color p_color = Color.white;
 
     public Transform dest;
@@ -38,14 +38,14 @@ public class WireBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float x = (dest.position.x + transform.position.x) / 2;
-        if (pos_x != x)
+        if (pos_x != transform.position)
         {
+            float x = (dest.position.x + transform.position.x) / 2;
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, new Vector3(x, transform.position.y, 0));
             lineRenderer.SetPosition(2, new Vector3(x, dest.position.y, 0));
             lineRenderer.SetPosition(3, dest.position);
-            pos_x = x;
+            pos_x = transform.position;
         }
     }
 }
