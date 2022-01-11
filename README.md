@@ -28,3 +28,9 @@
 ### 참고 책
 
 1. The Elements of Computing Systems 밑바닥부터 만드는 컴퓨팅 시스템 by Noam Nisan
+
+## 기획
+
+### 기능
+
+여기서 기능이라 함은 유니티 엔진 상에서 이 프로젝트가 동작하는(헤야하는) 것을 말한다.
