@@ -32,7 +32,7 @@ public class WireBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("start");
+
         lineRenderer = transform.GetComponent<LineRenderer>();
         lineRenderer.positionCount = 4;
         lineRenderer.startWidth = 0.1f;
@@ -43,7 +43,6 @@ public class WireBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("update");
         if (pos_x != transform.position)
         {
             float x = (dest.position.x + transform.position.x) / 2;
