@@ -4,7 +4,8 @@ using UnityEngine;
 using Types;
 
 [CreateAssetMenuAttribute(fileName="New Mux Data", menuName="MyCPU Data/Mux")]
-public class MuxData : ObjectData
+public class MuxData : ScriptableObject
 {
-    public MuxType  muxType;
+    public GameObject muxObject;
+    public GameObject deMuxObject;
 }

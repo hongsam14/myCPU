@@ -18,15 +18,12 @@ public class GateDesignerWindow : EditorWindow
     Rect gateSection;
     Rect muxSection;
 
-    static GateData gateData;
-    static MuxData muxData;
+    static GateType gateType;
+    static MuxType muxType;
 
-    public static GateData gateInfo { get => gateData; }
-    public static MuxData muxInfo { get => muxData; }
+    public static GateType gateInfo { get => gateType; }
+    public static MuxType muxInfo { get => muxType; }
 
-
-    
-    
     [MenuItem("Window/Gate Designer")]
     static void OpenWindow()
     {
@@ -69,14 +66,11 @@ public class GateDesignerWindow : EditorWindow
         }
     }
     /// <summary>
-    /// make Scriptable Object instance.
+    /// read Gate, Mux Objects from resources
     /// </summary>
-    public static void InitData()
+    void InitData() 
     {
-        gateData = ScriptableObject.CreateInstance<GateData>();
-        muxData = ScriptableObject.CreateInstance<MuxData>();
     }
-
     /// <summary>
     /// similar with Update function. not called once per frame, called one or more times per interactions
     /// </summary>
@@ -129,12 +123,24 @@ public class GateDesignerWindow : EditorWindow
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("type :");
-        gateData.gateType = (GateType)EditorGUILayout.EnumPopup(gateData.gateType);
+        gateType = (GateType)EditorGUILayout.EnumPopup(gateType);
         GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Create"))
 	    {
-
+            switch (gateType)
+	        {
+                case GateType.Not:
+                    break;
+                case GateType.Or:
+                    break;
+                case GateType.And:
+                    break;
+                case GateType.Xor:
+                    break;
+                default:
+                    break;
+	        }
 	    }
         
 	    GUILayout.EndArea();
@@ -150,12 +156,20 @@ public class GateDesignerWindow : EditorWindow
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("type :");
-        muxData.muxType = (MuxType)EditorGUILayout.EnumPopup(muxData.muxType);
+        muxType = (MuxType)EditorGUILayout.EnumPopup(muxType);
         GUILayout.EndHorizontal();
         
         if (GUILayout.Button("Create"))
 	    {
-
+            switch (muxType)
+	        {
+                case MuxType.Mux:
+                    break;
+                case MuxType.DeMux:
+                    break;
+                default:
+                    break;
+	        }
 	    }
 	    
 	    GUILayout.EndArea();
