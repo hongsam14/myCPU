@@ -17,6 +17,8 @@ public class GateDesignerWindow : EditorWindow
     Rect headerSection;
     Rect gateSection;
     Rect muxSection;
+    Rect flexableRect;
+    
 
     static GateType gateType;
     static MuxType muxType;
