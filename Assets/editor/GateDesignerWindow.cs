@@ -22,7 +22,10 @@ public class GateDesignerWindow : EditorWindow
     static MuxType muxType;
 
     public static GateType gateInfo { get => gateType; }
-    public static MuxType muxInfo { get => muxType; }
+    public static MuxType muxInfo { get => muxType;}
+
+    static GateData gateData;
+    static MuxData muxData;
 
     [MenuItem("Window/Gate Designer")]
     static void OpenWindow()
@@ -70,6 +73,8 @@ public class GateDesignerWindow : EditorWindow
     /// </summary>
     void InitData() 
     {
+        gateData = Resources.Load<GateData>("gateData/data/gate/gateData");
+        muxData = Resources.Load<MuxData>("gateData/data/mux/muxData");
     }
     /// <summary>
     /// similar with Update function. not called once per frame, called one or more times per interactions
@@ -131,12 +136,16 @@ public class GateDesignerWindow : EditorWindow
             switch (gateType)
 	        {
                 case GateType.Not:
+                    Instantiate<GameObject>(gateData.notObject);
                     break;
                 case GateType.Or:
+                    Instantiate<GameObject>(gateData.orObject);
                     break;
                 case GateType.And:
+                    Instantiate<GameObject>(gateData.andObject);
                     break;
                 case GateType.Xor:
+                    Instantiate<GameObject>(gateData.xorObject);
                     break;
                 default:
                     break;
@@ -164,8 +173,10 @@ public class GateDesignerWindow : EditorWindow
             switch (muxType)
 	        {
                 case MuxType.Mux:
+                    Instantiate<GameObject>(muxData.muxObject);
                     break;
                 case MuxType.DeMux:
+                    Instantiate<GameObject>(muxData.deMuxObject);
                     break;
                 default:
                     break;
