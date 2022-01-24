@@ -6,6 +6,7 @@ using Types;
 
 public class GateDesignerWindow : EditorWindow
 {
+    /*
     Texture2D headerTexture;
     Texture2D gateSectionTexture;
     Texture2D muxSectionTexture;
@@ -13,12 +14,11 @@ public class GateDesignerWindow : EditorWindow
     Color headerTextureColor = new Color(0.2f, 0.2f, 0.2f, 1f);
     Color gateSectionTextureColor = new Color(0.4f, 0.4f, 0.4f, 1f);
     Color muxSectionTextureColor = new Color(0.3f, 0.3f, 0.3f, 1.0f);
-
+    
     Rect headerSection;
     Rect gateSection;
     Rect muxSection;
-    Rect flexableRect;
-    
+    */
 
     static GateType gateType;
     static MuxType muxType;
@@ -43,12 +43,13 @@ public class GateDesignerWindow : EditorWindow
     /// </summary>
     void OnEnable()
     {
-        InitTextures();
+        //InitTextures();
         InitData();
     }
     /// <summary>
     /// initialize Texture2D values
     /// </summary>
+    /*
     void InitTextures()
     {
         if (!(headerTexture = Resources.Load<Texture2D>("icons/editor_header_gradient")))
@@ -70,6 +71,7 @@ public class GateDesignerWindow : EditorWindow
             muxSectionTexture.Apply();
         }
     }
+    */
     /// <summary>
     /// read Gate, Mux Objects from resources
     /// </summary>
@@ -83,15 +85,18 @@ public class GateDesignerWindow : EditorWindow
     /// </summary>
     void OnGUI()
     {
-        DrawLayouts();
+        //DrawLayouts();
         DrawHeader();
+        GUILayout.BeginHorizontal();
         DrawGateSetting();
         DrawMuxSetting();
+        GUILayout.EndHorizontal();
 
     }
     /// <summary>
     /// define rect values and point textures based on rects
     /// </summary>
+    /*
     void DrawLayouts() 
     {
         headerSection.position = new Vector2(0, 0);
@@ -110,28 +115,36 @@ public class GateDesignerWindow : EditorWindow
         GUI.DrawTexture(gateSection, gateSectionTexture);
         GUI.DrawTexture(muxSection, muxSectionTexture);
     }
+    */
     /// <summary>
     /// draw contents of header
     /// </summary>
     void DrawHeader() 
     {
-        GUILayout.BeginArea(headerSection);
+        //GUILayout.BeginArea(headerSection);
+        GUILayout.BeginVertical();
         GUILayout.Label("Gate Designer", EditorStyles.boldLabel);
-        GUILayout.EndArea();
+        EditorGUILayout.Space();
+        GUILayout.EndVertical();
+        //GUILayout.EndArea();
     }
     /// <summary>
     /// draw contents of gate object
     /// </summary>
     void DrawGateSetting()
     {
-        GUILayout.BeginArea(gateSection);
-        GUILayout.Label("Gate", EditorStyles.boldLabel);
+        //GUILayout.BeginArea(gateSection);
+        GUILayout.BeginVertical();
+        
+	    GUILayout.Label("Gate", EditorStyles.boldLabel);
         EditorGUILayout.Space();
+        //GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("type :");
         gateType = (GateType)EditorGUILayout.EnumPopup(gateType);
         GUILayout.EndHorizontal();
+        EditorGUILayout.Space();
 
         if (GUILayout.Button("Create"))
 	    {
@@ -153,22 +166,26 @@ public class GateDesignerWindow : EditorWindow
                     break;
 	        }
 	    }
-        
-	    GUILayout.EndArea();
+
+        //GUILayout.EndArea();
+        GUILayout.EndVertical();
     }
     /// <summary>
     /// draw contents of mux object
     /// </summary>
     void DrawMuxSetting()
-    { 
-        GUILayout.BeginArea(muxSection);
-        GUILayout.Label("Multiplexor", EditorStyles.boldLabel);
+    {
+        //GUILayout.BeginArea(muxSection);
+        GUILayout.BeginVertical();
+        
+	    GUILayout.Label("Multiplexor", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("type :");
         muxType = (MuxType)EditorGUILayout.EnumPopup(muxType);
         GUILayout.EndHorizontal();
+        EditorGUILayout.Space();
         
         if (GUILayout.Button("Create"))
 	    {
@@ -184,7 +201,8 @@ public class GateDesignerWindow : EditorWindow
                     break;
 	        }
 	    }
-	    
-	    GUILayout.EndArea();
+
+        //GUILayout.EndArea();
+        GUILayout.EndVertical();
     }
 }

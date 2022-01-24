@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d38994aed31c4bd8859b02f9f89b67c, type: 3}
   m_Name: muxData
   m_EditorClassIdentifier: 
-  muxObject: {fileID: 0}
-  deMuxObject: {fileID: 0}
+  muxObject: {fileID: 4524049082661630610, guid: a9f9379636932490c821225e09a7c709, type: 3}
+  deMuxObject: {fileID: 8228862313782090333, guid: bc1cc774becae42b98c1ffb9e457fa9f, type: 3}
