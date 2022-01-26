@@ -4,24 +4,32 @@ using UnityEditor;
 using UnityEngine;
 using Types;
 
-[RequireComponent(typeof(GateControler))]
 public class Gate : MonoBehaviour
 {
+    public Gate[] inputs;
+    
+    private BitArray outBit { get; set; }
+    private BitArray[] inBit;
+    
     private GateType gateType { get; set; }
-    GateControler gateControler;
     
     // Start is called before the first frame update
     private void Start()
     {
-        gateControler = gameObject.GetComponent<GateControler>();
+        //initialize inBit;
+        inBit = new BitArray[inputs.Length];
+        for (int i = 0; i < inputs.Length; i++)
+	    {
+            inBit[i] = inputs[i].outBit;
+	    }
     }
     
     private void FixedUpdate()
     {
-        
+        outBit = gateAction(inBit);
     }
 
-    private BitArray gateAction(params BitArray[] data)
+    private BitArray gateAction(BitArray[] data)
     {
         switch (gateType)
 	    {
