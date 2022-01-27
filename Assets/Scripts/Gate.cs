@@ -18,14 +18,14 @@ public class Gate : MonoBehaviour
     {
         //initialize inBit;
         inBit = new BitArray[inputs.Length];
-        for (int i = 0; i < inputs.Length; i++)
-	    {
-            inBit[i] = inputs[i].outBit;
-	    }
     }
     
     private void FixedUpdate()
     {
+        for (int i = 0; i < inputs.Length; i++)
+	    {
+            inBit[i] = inputs[i].outBit;
+	    }
         outBit = gateAction(inBit);
     }
 
@@ -56,6 +56,7 @@ public class Gate : MonoBehaviour
             case GateType.Not:
                 if (data.Length == 1)
                     return data[0].Not();
+                //error
                 Debug.Log("too many input datas in converter");
                 break;
             case GateType.Xor:
