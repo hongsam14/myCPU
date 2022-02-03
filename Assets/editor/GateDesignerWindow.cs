@@ -134,7 +134,7 @@ public class GateDesignerWindow : EditorWindow
     void DrawGateSetting()
     {
         //GUILayout.BeginArea(gateSection);
-        GUILayout.BeginVertical();
+        GUILayout.BeginVertical("Box");
         
 	    GUILayout.Label("Gate", EditorStyles.boldLabel);
         EditorGUILayout.Space();
@@ -176,7 +176,7 @@ public class GateDesignerWindow : EditorWindow
     void DrawMuxSetting()
     {
         //GUILayout.BeginArea(muxSection);
-        GUILayout.BeginVertical();
+        GUILayout.BeginVertical("Box");
         
 	    GUILayout.Label("Multiplexor", EditorStyles.boldLabel);
         EditorGUILayout.Space();

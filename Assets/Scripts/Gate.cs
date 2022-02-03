@@ -6,7 +6,27 @@ using Types;
 
 public class Gate : MonoBehaviour
 {
-    public Gate[] inputs;
+    public GameObject[] inputs = null;
+
+    public int inPortCount
+    {
+        get => inputs.Length;
+        set
+	    {
+            if (inputs == null)
+                inputs = new GameObject[value];
+            else
+	        {
+                GameObject[] tmp = new GameObject[value];
+                for(int i = 0; i < inputs.Length && i < value; i++)
+		        {
+                    tmp[i] = inputs[i];
+		        }
+                inputs = tmp;
+	        }
+	    }
+    }
+    public int outPortCount = 0;
     
     private BitArray outBit { get; set; }
     private BitArray[] inBit;
@@ -24,7 +44,8 @@ public class Gate : MonoBehaviour
     {
         for (int i = 0; i < inputs.Length; i++)
 	    {
-            inBit[i] = inputs[i].outBit;
+            if (inputs[i] != null)
+                inBit[i] = inputs[i].GetComponent<Gate>().outBit;
 	    }
         outBit = gateAction(inBit);
     }
