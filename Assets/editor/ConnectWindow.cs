@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.Runtime.CompilerServices;
 
 public class ConnectWindow : EditorWindow
 {
     public static bool open;
-    public static GameObject pickedObject { get; private set; }
-    private bool warnMessage = false;
+    public static GameObject selectedObject { get; private set; }
+    
     private GameObject target;
 
     /// <summary>
@@ -21,48 +20,61 @@ public class ConnectWindow : EditorWindow
         window.target = target;
         window.Show();
     }
-
+    
     private void OnEnable()
     {
-        pickedObject = null;
+        Debug.Log("open");
+        selectedObject = null;
         open = true;
     }
 
     private void OnDestroy()
     {
+        Debug.Log("close");
         open = false;
     }
 
     private void OnGUI()
     {
-        
-	    EditorGUILayout.HelpBox("please Select Object and press connect button. ", MessageType.Info);
+	    bool warn = false;
+
+        DrawTutorialMessage();
         if (GUILayout.Button("Connect"))
 	    {
+		    GameObject tmp = null;
             int num = 0;
-            GameObject tmp = null;
-            foreach (GameObject i in Selection.gameObjects)
+            
+	        foreach (GameObject obj in Selection.gameObjects)
 	        {
-                if (i != target)
+                if (obj != target)
                 {
-		            tmp = i;
+		            tmp = obj;
 		            num++;
                 }
 	        }
             if (num > 1 || num == 0)
             {
-                warnMessage = true;
+                warn = true;
             }
             else
 	        {
-                warnMessage = false;
-                pickedObject = tmp;
-                this.Close();
+                warn = false;
+			    selectedObject = tmp;
+			    this.Close(); 
 	        }
 	    }
-        if (warnMessage)
-        {
-            EditorGUILayout.HelpBox("please select just one Object.", MessageType.Warning);
-        }
+        
+	    if (warn)
+            DrawWarnMessage();
+    }
+
+    void DrawTutorialMessage()
+    {
+	    EditorGUILayout.HelpBox("please Select Object and press connect button. ", MessageType.Info);
+    }
+
+    void DrawWarnMessage()
+    {
+	    EditorGUILayout.HelpBox("please select just one Object.", MessageType.Warning);
     }
 }
