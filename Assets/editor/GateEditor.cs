@@ -60,7 +60,6 @@ public class GateEditor : Editor
                 GUILayout.Label("port" + i.ToString());
                 if (GUILayout.Button("Connect"))
                 {
-				    //ConnectWindow.OpenWindow(origin.gameObject);
                     TMP_EditorCoroutine.StartCoroutine(Connect(i));
                 }
             }
@@ -87,13 +86,10 @@ public class GateEditor : Editor
     IEnumerator Connect(int portID)
     {
         ConnectWindow.OpenWindow(origin.gameObject);
-        //yield return new WaitWhile(()=>ConnectWindow.open);
-        Debug.Log("wait start");
         while (ConnectWindow.open)
 	    {
             yield return null;
 	    }
-        Debug.Log("wait end");
 	    origin.inputs[portID] = ConnectWindow.selectedObject;
     }
 }

@@ -15,7 +15,8 @@ public class ConnectWindow : EditorWindow
     /// </summary>
     public static void OpenWindow(GameObject target)
     {
-        ConnectWindow window = GetWindow<ConnectWindow>(typeof(ConnectWindow));
+        //ConnectWindow window = GetWindow<ConnectWindow>(typeof(ConnectWindow));
+        ConnectWindow window = CreateInstance<ConnectWindow>();
         window.minSize = new Vector2(100, 100);
         window.target = target;
         window.Show();
