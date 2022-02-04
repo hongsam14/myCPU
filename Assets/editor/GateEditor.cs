@@ -9,7 +9,7 @@ using System.Collections;
 public class GateEditor : Editor
 {
     Gate origin;
-    
+
     public override void OnInspectorGUI()
     {
         //base.OnInspectorGUI();
@@ -30,15 +30,15 @@ public class GateEditor : Editor
 
         GUILayout.BeginVertical("Box");
         DrawInSection();
-        GUILayout.EndVertical(); 
-	    
-	    GUILayout.BeginVertical("Box");
+        GUILayout.EndVertical();
+
+        GUILayout.BeginVertical("Box");
         DrawOutSection();
         GUILayout.EndVertical();
 
         GUILayout.EndHorizontal();
-        
-	    GUILayout.EndVertical();
+
+        GUILayout.EndVertical();
     }
 
     void DrawGateHeader()
@@ -49,7 +49,7 @@ public class GateEditor : Editor
 
     void DrawInSection()
     {
-	    GUILayout.Label("In", EditorStyles.boldLabel);
+        GUILayout.Label("In", EditorStyles.boldLabel);
         origin.inPortCount = EditorGUILayout.IntSlider(origin.inPortCount, 0, 10);
 
         for (int i = 0; i < origin.inPortCount; i++)
@@ -85,11 +85,12 @@ public class GateEditor : Editor
     /// <returns></returns>
     IEnumerator Connect(int portID)
     {
-        ConnectWindow.OpenWindow(origin.gameObject);
-        while (ConnectWindow.open)
-	    {
+        ConnectWindow.OpenWindow(origin.gameObject, portID);
+        while (ConnectWindow.getWindowStatusInfo(portID))
+        {
             yield return null;
-	    }
-	    origin.inputs[portID] = ConnectWindow.selectedObject;
+        }
+        origin.inputs[portID] = ConnectWindow.getConnectObjInfo(portID);
+        ConnectWindow.cleanConnectWindowInfo(portID);
     }
 }

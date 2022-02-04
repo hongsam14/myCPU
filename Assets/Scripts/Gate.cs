@@ -12,19 +12,19 @@ public class Gate : MonoBehaviour
     {
         get => inputs.Length;
         set
-	    {
+        {
             if (inputs == null)
                 inputs = new GameObject[value];
             else
-	        {
+            {
                 GameObject[] tmp = new GameObject[value];
-                for(int i = 0; i < inputs.Length && i < value; i++)
-		        {
+                for (int i = 0; i < inputs.Length && i < value; i++)
+                {
                     tmp[i] = inputs[i];
-		        }
+                }
                 inputs = tmp;
-	        }
-	    }
+            }
+        }
     }
     public int outPortCount = 0;
     
@@ -32,28 +32,28 @@ public class Gate : MonoBehaviour
     private BitArray[] inBit;
     
     private GateType gateType { get; set; }
-    
+
     // Start is called before the first frame update
     private void Start()
     {
         //initialize inBit;
         inBit = new BitArray[inputs.Length];
     }
-    
+
     private void FixedUpdate()
     {
         for (int i = 0; i < inputs.Length; i++)
-	    {
+        {
             if (inputs[i] != null)
                 inBit[i] = inputs[i].GetComponent<Gate>().outBit;
-	    }
+        }
         outBit = gateAction(inBit);
     }
 
     private BitArray gateAction(BitArray[] data)
     {
         switch (gateType)
-	    {
+        {
             case GateType.And:
                 {
                     int i = 0, j = i + 1;
@@ -92,7 +92,7 @@ public class Gate : MonoBehaviour
                 }
             default:
                 break;
-	    }
+        }
         return null;
     }
 }
