@@ -86,11 +86,11 @@ public class GateEditor : Editor
     IEnumerator Connect(int portID)
     {
         ConnectWindow.OpenWindow(origin.gameObject, portID);
-        while (ConnectWindow.getWindowStatusInfo(portID))
+        while (ConnectWindow.getWindowStatusInfo(origin.gameObject, portID))
         {
             yield return null;
         }
-        origin.inputs[portID] = ConnectWindow.getConnectObjInfo(portID);
-        ConnectWindow.cleanConnectWindowInfo(portID);
+        origin.inputs[portID] = ConnectWindow.getConnectObjInfo(origin.gameObject, portID);
+        ConnectWindow.cleanConnectWindowInfo(origin.gameObject, portID);
     }
 }

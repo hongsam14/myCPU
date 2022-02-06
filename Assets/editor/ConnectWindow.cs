@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Connect;
+using ConnectData;
 
 public class ConnectWindow : EditorWindow
 {
-    public static WindowData data = new WindowData();
+    public static WindowCache cache = new WindowCache();
     
     private GameObject target;
     private int index;
@@ -21,8 +21,7 @@ public class ConnectWindow : EditorWindow
         window.target = target;
         window.index = index;
 
-        data.AddData(index);
-        data.SetData(index, true); //set status data open.
+        cache.AddPortCacheToGate(target, index).Open();
 
         window.minSize = new Vector2(100, 100);
         GUIContent titleContent = new GUIContent(target.name + "/port" + index.ToString());
@@ -31,14 +30,11 @@ public class ConnectWindow : EditorWindow
         window.Show();
     }
 
-    public static GameObject getConnectObjInfo(int index) { return data.GetObj(index); }
+    public static GameObject getConnectObjInfo(GameObject obj, int i) => cache[obj, i].GetObject();
     
-    public static bool getWindowStatusInfo(int index) { return data.GetStatus(index); }
+    public static bool getWindowStatusInfo(GameObject obj, int i) => cache[obj, i].Status();
 
-    public static void cleanConnectWindowInfo(int index) 
-    {
-        data.ClearData(index);
-    }
+    public static void cleanConnectWindowInfo(GameObject obj, int i) => cache.DelPortCacheFromGate(obj, i);
 
     private void OnEnable()
     {
@@ -46,7 +42,7 @@ public class ConnectWindow : EditorWindow
 
     private void OnDestroy()
     {
-        data.SetData(index, false);
+        cache[target, index].Close();
     }
 
     private void OnGUI()
@@ -74,7 +70,7 @@ public class ConnectWindow : EditorWindow
             else
 	        {
                 warn = false;
-                data.SetData(index, tmp);
+                cache[target, index].Connect(tmp);
 			    this.Close(); 
 	        }
 	    }
@@ -93,63 +89,3 @@ public class ConnectWindow : EditorWindow
 	    EditorGUILayout.HelpBox("please select just one Object.", MessageType.Warning);
     }
 }
-
-namespace Connect
-{
-    public class WindowData
-    {
-        private Dictionary<int, bool> windowStatus;
-        private Dictionary<int, GameObject> selectionStatus;
-
-        public WindowData()
-        {
-            windowStatus = new Dictionary<int, bool>();
-            selectionStatus = new Dictionary<int, GameObject>();
-        }
-
-        public WindowData(ref WindowData prev)
-        {
-            windowStatus = prev.windowStatus;
-            selectionStatus = prev.selectionStatus;
-        }
-
-        ~WindowData()
-        {
-            windowStatus.Clear();
-            selectionStatus.Clear();
-        }
-
-        public void AddData(int index)
-        {
-            windowStatus.Add(index, false);
-            selectionStatus.Add(index, null);
-        }
-
-        public void ClearData(int index)
-        {
-            windowStatus.Remove(index);
-            selectionStatus.Remove(index);
-        }
-
-        public void SetData(int index, bool status)
-        {
-            windowStatus[index] = status;
-        }
-
-        public void SetData(int index, GameObject selected)
-        {
-            selectionStatus[index] = selected;
-        }
-
-        public void SetData(int index, bool status, GameObject selected)
-        {
-            windowStatus[index] = status;
-            selectionStatus[index] = selected;
-        }
-
-        public bool GetStatus(int index) => windowStatus[index];
-
-        public GameObject GetObj(int index) => selectionStatus[index];
-    }
-}
-
