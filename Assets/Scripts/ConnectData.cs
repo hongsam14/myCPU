@@ -6,6 +6,7 @@ using UnityEngine;
 namespace ConnectData
 {
     public class PortInfo
+    //public struct PortInfo
     {
         private readonly int portID;
         private bool open;
@@ -72,7 +73,9 @@ namespace ConnectData
             Dictionary<int, PortInfo> gate = GetGateData(target);
 
             if (!gate.ContainsKey(index))
+            {
                 gate.Add(index, new PortInfo(index));
+            }
             return gate[index];
         }
 
