@@ -1,37 +1,72 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using ConnectData;
+using TMPro.EditorUtilities;
 
 public class ConnectWindow : EditorWindow
 {
-    public static bool open;
-    public static GameObject selectedObject { get; private set; }
+    private static WindowCache cache { get; set; } = new WindowCache();
+    private static int id = 0;
     
-    private GameObject target;
+    private GameObject parentObj;
+    private int my_id;
 
     /// <summary>
-    /// init connect_window.
+    /// make ConnectWindow Instance and return WindowId.
     /// </summary>
-    public static void OpenWindow(GameObject target)
+    static int OpenWindow(GameObject parent)
     {
-        ConnectWindow window = GetWindow<ConnectWindow>(typeof(ConnectWindow));
+        ConnectWindow window = CreateInstance<ConnectWindow>();
+
+        window.parentObj = parent;
+        window.my_id = id;
+
+        Debug.Log("in:" + window.my_id.ToString());
+
         window.minSize = new Vector2(100, 100);
-        window.target = target;
+        GUIContent titleContent = new GUIContent(parent.name);
+        window.titleContent = titleContent;
+
         window.Show();
+        return id++;
+    }
+
+    public delegate void setObjmethod(GameObject to);
+
+    /// <summary>
+    /// Open ConnectWindow and run func
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="func"></param>
+    public static void Connect(GameObject parent, setObjmethod func)
+    {
+        TMP_EditorCoroutine.StartCoroutine(ConnectCoroutine(parent, func));
     }
     
+    static IEnumerator ConnectCoroutine(GameObject parent, setObjmethod func)
+    {
+        //ActiveEditorTracker.sharedTracker.isLocked = true;
+        int id = OpenWindow(parent);
+        while (cache[id].open)
+        {
+            yield return null;
+        }
+        func.Invoke(cache[id].selectedObj);
+        cache.DelWindowCache(id);
+        //ActiveEditorTracker.sharedTracker.isLocked = false;
+    }
+
+
     private void OnEnable()
     {
-        Debug.Log("open");
-        selectedObject = null;
-        open = true;
+        cache.AddWindowCache(id).open = true;
     }
 
     private void OnDestroy()
     {
-        Debug.Log("close");
-        open = false;
+        cache[my_id].open = false;
+        id--;
     }
 
     private void OnGUI()
@@ -46,7 +81,7 @@ public class ConnectWindow : EditorWindow
             
 	        foreach (GameObject obj in Selection.gameObjects)
 	        {
-                if (obj != target)
+                if (obj != parentObj)
                 {
 		            tmp = obj;
 		            num++;
@@ -57,23 +92,30 @@ public class ConnectWindow : EditorWindow
                 warn = true;
             }
             else
-	        {
+            {
                 warn = false;
-			    selectedObject = tmp;
-			    this.Close(); 
-	        }
+                cache[my_id].selectedObj = tmp;
+                returnSelection();
+                this.Close();
+            }
 	    }
-        
 	    if (warn)
             DrawWarnMessage();
     }
 
-    void DrawTutorialMessage()
+    private void returnSelection()
+    {
+        Object[] lst = new Object[1];
+        lst[0] = parentObj;
+        Selection.objects = lst;
+    }
+
+    private void DrawTutorialMessage()
     {
 	    EditorGUILayout.HelpBox("please Select Object and press connect button. ", MessageType.Info);
     }
 
-    void DrawWarnMessage()
+    private void DrawWarnMessage()
     {
 	    EditorGUILayout.HelpBox("please select just one Object.", MessageType.Warning);
     }

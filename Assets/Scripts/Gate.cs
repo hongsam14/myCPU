@@ -1,59 +1,40 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using Types;
 
 public class Gate : MonoBehaviour
 {
-    public GameObject[] inputs = null;
-
-    public int inPortCount
-    {
-        get => inputs.Length;
-        set
-	    {
-            if (inputs == null)
-                inputs = new GameObject[value];
-            else
-	        {
-                GameObject[] tmp = new GameObject[value];
-                for(int i = 0; i < inputs.Length && i < value; i++)
-		        {
-                    tmp[i] = inputs[i];
-		        }
-                inputs = tmp;
-	        }
-	    }
-    }
-    public int outPortCount = 0;
+    public GameObject[]
+        inputs = null,
+        outputs = null;
+    
+    public GateType gateType { get; set; }
     
     private BitArray outBit { get; set; }
     private BitArray[] inBit;
     
-    private GateType gateType { get; set; }
-    
+
     // Start is called before the first frame update
     private void Start()
     {
         //initialize inBit;
         inBit = new BitArray[inputs.Length];
     }
-    
+
     private void FixedUpdate()
     {
         for (int i = 0; i < inputs.Length; i++)
-	    {
+        {
             if (inputs[i] != null)
                 inBit[i] = inputs[i].GetComponent<Gate>().outBit;
-	    }
-        outBit = gateAction(inBit);
+        }
+        outBit = gateAction(inBit, gateType);
     }
 
-    private BitArray gateAction(BitArray[] data)
+    private BitArray gateAction(BitArray[] data, GateType type = GateType.Not)
     {
-        switch (gateType)
-	    {
+        switch (type)
+        {
             case GateType.And:
                 {
                     int i = 0, j = i + 1;
@@ -92,7 +73,7 @@ public class Gate : MonoBehaviour
                 }
             default:
                 break;
-	    }
+        }
         return null;
     }
 }

@@ -24,7 +24,7 @@ public class GateDesignerWindow : EditorWindow
     static MuxType muxType;
 
     public static GateType gateInfo { get => gateType; }
-    public static MuxType muxInfo { get => muxType;}
+    public static MuxType muxInfo { get => muxType; }
 
     static GateData gateData;
     static MuxData muxData;
@@ -37,7 +37,7 @@ public class GateDesignerWindow : EditorWindow
         window.Show();
     }
 
-    
+
     /// <summary>
     /// similar with Awake() and Start()
     /// </summary>
@@ -75,7 +75,7 @@ public class GateDesignerWindow : EditorWindow
     /// <summary>
     /// read Gate, Mux Objects from resources
     /// </summary>
-    void InitData() 
+    void InitData()
     {
         gateData = Resources.Load<GateData>("gateData/data/gate/gateData");
         muxData = Resources.Load<MuxData>("gateData/data/mux/muxData");
@@ -119,7 +119,7 @@ public class GateDesignerWindow : EditorWindow
     /// <summary>
     /// draw contents of header
     /// </summary>
-    void DrawHeader() 
+    void DrawHeader()
     {
         //GUILayout.BeginArea(headerSection);
         GUILayout.BeginVertical();
@@ -135,8 +135,8 @@ public class GateDesignerWindow : EditorWindow
     {
         //GUILayout.BeginArea(gateSection);
         GUILayout.BeginVertical("Box");
-        
-	    GUILayout.Label("Gate", EditorStyles.boldLabel);
+
+        GUILayout.Label("Gate", EditorStyles.boldLabel);
         EditorGUILayout.Space();
         //GUILayout.FlexibleSpace();
 
@@ -147,9 +147,9 @@ public class GateDesignerWindow : EditorWindow
         EditorGUILayout.Space();
 
         if (GUILayout.Button("Create"))
-	    {
+        {
             switch (gateType)
-	        {
+            {
                 case GateType.Not:
                     Instantiate<GameObject>(gateData.notObject);
                     break;
@@ -164,8 +164,8 @@ public class GateDesignerWindow : EditorWindow
                     break;
                 default:
                     break;
-	        }
-	    }
+            }
+        }
 
         //GUILayout.EndArea();
         GUILayout.EndVertical();
@@ -177,8 +177,8 @@ public class GateDesignerWindow : EditorWindow
     {
         //GUILayout.BeginArea(muxSection);
         GUILayout.BeginVertical("Box");
-        
-	    GUILayout.Label("Multiplexor", EditorStyles.boldLabel);
+
+        GUILayout.Label("Multiplexor", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
         GUILayout.BeginHorizontal();
@@ -186,11 +186,11 @@ public class GateDesignerWindow : EditorWindow
         muxType = (MuxType)EditorGUILayout.EnumPopup(muxType);
         GUILayout.EndHorizontal();
         EditorGUILayout.Space();
-        
+
         if (GUILayout.Button("Create"))
-	    {
+        {
             switch (muxType)
-	        {
+            {
                 case MuxType.Mux:
                     Instantiate<GameObject>(muxData.muxObject);
                     break;
@@ -199,8 +199,8 @@ public class GateDesignerWindow : EditorWindow
                     break;
                 default:
                     break;
-	        }
-	    }
+            }
+        }
 
         //GUILayout.EndArea();
         GUILayout.EndVertical();
