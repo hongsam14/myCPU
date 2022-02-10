@@ -4,5 +4,4 @@ using UnityEngine;
 
 public class Mux : MonoBehaviour
 {
-	public MuxData	muxData;
 }
