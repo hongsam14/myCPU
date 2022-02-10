@@ -5,98 +5,60 @@ using UnityEngine;
 
 namespace ConnectData
 {
-    public class PortInfo
-    //public struct PortInfo
+    public class WindowInfo
     {
-        private readonly int portID;
-        private bool open;
-        private GameObject selectedObj;
+        private readonly int id;
+        public bool open { get; set; }
+        public GameObject selectedObj { get; set; }
 
-        public PortInfo(int i)
+        public WindowInfo(int i)
         {
-            this.portID = i;
+            this.id = i;
             this.open = false;
             this.selectedObj = null;
         }
 
-        public bool Open() { this.open = true; return this.open; }
-
-        public bool Close() => this.open = false;
-
-        public bool Status() => this.open;
-
-        public GameObject Connect(GameObject value) => this.selectedObj = value;
-
-        public GameObject GetObject() => this.selectedObj;
-
-        public GameObject DisConnect() => this.selectedObj = null;
-
         public override string ToString()
         {
-            return $"port:{portID}, open:{open}, selectedObj:{selectedObj}";
+            return $"window:{id}, open:{open}, selectedObj:{selectedObj}";
         }
     }
 
     public class WindowCache
     {
-        private Dictionary<GameObject, Dictionary<int, PortInfo>> data;
+        private Dictionary<int, WindowInfo> data;
 
         public WindowCache()
         {
-            data = new Dictionary<GameObject, Dictionary<int, PortInfo>>();
+            data = new Dictionary<int, WindowInfo>();
         }
 
         ~WindowCache()
         {
-            data.Clear();
+            data = null;
         }
 
-        private Dictionary<int, PortInfo> GetGateData(GameObject target)
+        public WindowInfo AddWindowCache(int id)
         {
-            if (!data.ContainsKey(target))
+            if (!data.ContainsKey(id))
             {
-                data.Add(target, new Dictionary<int, PortInfo>());
+                data.Add(id, new WindowInfo(id));
             }
-            return data[target];
+            return data[id];
         }
 
-        private void DelGateData(GameObject target)
+        public void DelWindowCache(int id)
         {
-            if (data.ContainsKey(target))
+            if (data.ContainsKey(id))
             {
-                data.Remove(target);
-            }
-        }
-
-        public PortInfo AddPortCacheToGate(GameObject target, int index)
-        {
-            Dictionary<int, PortInfo> gate = GetGateData(target);
-
-            if (!gate.ContainsKey(index))
-            {
-                gate.Add(index, new PortInfo(index));
-            }
-            return gate[index];
-        }
-
-        public void DelPortCacheFromGate(GameObject target, int index)
-        {
-            if (data.ContainsKey(target))
-            {
-                if (data[target].ContainsKey(index))
-                    data[target].Remove(index);
-                if (data[target].Count == 0)
-                {
-                    data[target].Clear();
-                    DelGateData(target);
-                }
+                data.Remove(id);
             }
         }
 
-        public PortInfo this[GameObject target, int index]
+        public WindowInfo this[int id]
         {
-            get { return data[target][index]; }
-            set { data[target][index] = value; }
+            get { return data[id]; }
+            set { data[id] = value; }
         }
     }
 }

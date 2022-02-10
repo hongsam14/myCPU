@@ -6,43 +6,41 @@ using ConnectData;
 
 public class ConnectWindow : EditorWindow
 {
-    public static WindowCache cache = new WindowCache();
+    public static WindowCache cache { get; private set; } = new WindowCache();
+    private static int id = 0;
     
-    private GameObject target;
-    private int index;
+    private GameObject parentObj;
+    private int my_id;
 
     /// <summary>
-    /// init connect_window.
+    /// make ConnectWindow Instance and return WindowId.
     /// </summary>
-    public static void OpenWindow(GameObject target, int index)
+    public static int OpenWindow(GameObject parent)
     {
         ConnectWindow window = CreateInstance<ConnectWindow>();
 
-        window.target = target;
-        window.index = index;
+        window.parentObj = parent;
+        window.my_id = id;
 
-        cache.AddPortCacheToGate(target, index).Open();
+        Debug.Log("in:" + window.my_id.ToString());
 
         window.minSize = new Vector2(100, 100);
-        GUIContent titleContent = new GUIContent(target.name + "/port" + index.ToString());
+        GUIContent titleContent = new GUIContent(parent.name);
         window.titleContent = titleContent;
 
         window.Show();
+        return id++;
     }
-
-    public static GameObject getConnectObjInfo(GameObject obj, int i) => cache[obj, i].GetObject();
-    
-    public static bool getWindowStatusInfo(GameObject obj, int i) => cache[obj, i].Status();
-
-    public static void cleanConnectWindowInfo(GameObject obj, int i) => cache.DelPortCacheFromGate(obj, i);
 
     private void OnEnable()
     {
+        cache.AddWindowCache(id).open = true;
     }
 
     private void OnDestroy()
     {
-        cache[target, index].Close();
+        cache[my_id].open = false;
+        id--;
     }
 
     private void OnGUI()
@@ -57,7 +55,7 @@ public class ConnectWindow : EditorWindow
             
 	        foreach (GameObject obj in Selection.gameObjects)
 	        {
-                if (obj != target)
+                if (obj != parentObj)
                 {
 		            tmp = obj;
 		            num++;
@@ -70,11 +68,10 @@ public class ConnectWindow : EditorWindow
             else
 	        {
                 warn = false;
-                cache[target, index].Connect(tmp);
-			    this.Close(); 
+                cache[my_id].selectedObj = tmp;
+			    this.Close();
 	        }
 	    }
-        
 	    if (warn)
             DrawWarnMessage();
     }

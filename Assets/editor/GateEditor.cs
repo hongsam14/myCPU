@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.UI;
-using Unity;
 using TMPro.EditorUtilities;
 using System.Collections;
 
@@ -13,8 +11,10 @@ public class GateEditor : Editor
     public override void OnInspectorGUI()
     {
         //base.OnInspectorGUI();
+        serializedObject.Update();
         origin = (Gate)target;
         DrawGateSection();
+        serializedObject.ApplyModifiedProperties();
     }
 
 
@@ -23,22 +23,14 @@ public class GateEditor : Editor
     /// </summary>
     void DrawGateSection()
     {
-        GUILayout.BeginVertical();
         DrawGateHeader();
 
-        GUILayout.BeginHorizontal();
+        origin.gateType = (Types.GateType)EditorGUILayout.EnumPopup(origin.gateType);
 
-        GUILayout.BeginVertical("Box");
-        DrawInSection();
-        GUILayout.EndVertical();
-
-        GUILayout.BeginVertical("Box");
-        DrawOutSection();
-        GUILayout.EndVertical();
-
-        GUILayout.EndHorizontal();
-
-        GUILayout.EndVertical();
+        EditorGUILayout.BeginHorizontal();
+        EditorList.Show(serializedObject.FindProperty("inputs"), null);
+        EditorList.Show(serializedObject.FindProperty("outputs"), null);
+        EditorGUILayout.EndHorizontal();
     }
 
     void DrawGateHeader()
@@ -47,50 +39,26 @@ public class GateEditor : Editor
         EditorGUILayout.Space();
     }
 
-    void DrawInSection()
-    {
-        GUILayout.Label("In", EditorStyles.boldLabel);
-        origin.inPortCount = EditorGUILayout.IntSlider(origin.inPortCount, 0, 10);
-
-        for (int i = 0; i < origin.inPortCount; i++)
-        {
-            GUILayout.BeginHorizontal();
-            if (origin.inputs == null || origin.inputs[i] == null)
-            {
-                GUILayout.Label("port" + i.ToString());
-                if (GUILayout.Button("Connect"))
-                {
-                    TMP_EditorCoroutine.StartCoroutine(Connect(i));
-                }
-            }
-            else
-            {
-                GUILayout.Label("port" + i.ToString() + ":" + origin.inputs[i].name);
-                if (GUILayout.Button("Disconnect"))
-                {
-                }
-            }
-            GUILayout.EndHorizontal();
-        }
-    }
-
-    void DrawOutSection()
+    void gateEditorButton(SerializedProperty list, int index)
     {
     }
+
+    delegate void setObjmethod(GameObject to);
 
     /// <summary>
     /// Open Connected window and wait it closed, get result.
     /// </summary>
     /// <param name="portID">ID that you want to connect.</param>
     /// <returns></returns>
-    IEnumerator Connect(int portID)
+    IEnumerator Connect(setObjmethod setObj)
     {
-        ConnectWindow.OpenWindow(origin.gameObject, portID);
-        while (ConnectWindow.getWindowStatusInfo(origin.gameObject, portID))
+        int id = ConnectWindow.OpenWindow(origin.gameObject);
+        while (ConnectWindow.cache[id].open)
         {
             yield return null;
         }
-        origin.inputs[portID] = ConnectWindow.getConnectObjInfo(origin.gameObject, portID);
-        ConnectWindow.cleanConnectWindowInfo(origin.gameObject, portID);
+        //origin.inputs[portID] = ConnectWindow.cache[id].selectedObj;
+        setObj.Invoke(ConnectWindow.cache[id].selectedObj);
+        ConnectWindow.cache.DelWindowCache(id);
     }
 }
