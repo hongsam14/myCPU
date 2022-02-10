@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEditor;
-using TMPro.EditorUtilities;
-using System.Collections;
 
 [CustomEditor(typeof(Gate))]
 public class GateEditor : Editor
@@ -27,10 +25,10 @@ public class GateEditor : Editor
 
         origin.gateType = (Types.GateType)EditorGUILayout.EnumPopup(origin.gateType);
 
-        EditorGUILayout.BeginHorizontal();
-        EditorList.Show(serializedObject.FindProperty("inputs"), null);
-        EditorList.Show(serializedObject.FindProperty("outputs"), null);
-        EditorGUILayout.EndHorizontal();
+        //EditorGUILayout.BeginHorizontal();
+        EditorList.Show(serializedObject.FindProperty("inputs"), InputButton);
+        EditorList.Show(serializedObject.FindProperty("outputs"), OutputButton);
+        //EditorGUILayout.EndHorizontal();
     }
 
     void DrawGateHeader()
@@ -39,26 +37,39 @@ public class GateEditor : Editor
         EditorGUILayout.Space();
     }
 
-    void gateEditorButton(SerializedProperty list, int index)
+    void InputButton(SerializedProperty list, int index)
     {
+        if (origin.inputs[index] == null)
+        {
+            if (GUILayout.Button("connect"))
+            {
+                ConnectWindow.Connect(origin.gameObject, (newValue) => { origin.inputs[index] = newValue; });
+            }
+        }
+        else
+        {
+            if (GUILayout.Button("disconnect"))
+            {
+                origin.inputs[index] = null;
+            }
+        }
     }
 
-    delegate void setObjmethod(GameObject to);
-
-    /// <summary>
-    /// Open Connected window and wait it closed, get result.
-    /// </summary>
-    /// <param name="portID">ID that you want to connect.</param>
-    /// <returns></returns>
-    IEnumerator Connect(setObjmethod setObj)
+    void OutputButton(SerializedProperty list, int index)
     {
-        int id = ConnectWindow.OpenWindow(origin.gameObject);
-        while (ConnectWindow.cache[id].open)
+        if (origin.outputs[index] == null)
         {
-            yield return null;
+            if (GUILayout.Button("connect"))
+            {
+                ConnectWindow.Connect(origin.gameObject, (newValue) => { origin.outputs[index] = newValue; });
+            }
         }
-        //origin.inputs[portID] = ConnectWindow.cache[id].selectedObj;
-        setObj.Invoke(ConnectWindow.cache[id].selectedObj);
-        ConnectWindow.cache.DelWindowCache(id);
+        else
+        {
+            if (GUILayout.Button("disconnect"))
+            {
+                origin.outputs[index] = null;
+            }
+        }
     }
 }

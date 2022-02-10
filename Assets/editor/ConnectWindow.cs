@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using ConnectData;
+using TMPro.EditorUtilities;
 
 public class ConnectWindow : EditorWindow
 {
-    public static WindowCache cache { get; private set; } = new WindowCache();
+    private static WindowCache cache { get; set; } = new WindowCache();
     private static int id = 0;
     
     private GameObject parentObj;
@@ -15,7 +15,7 @@ public class ConnectWindow : EditorWindow
     /// <summary>
     /// make ConnectWindow Instance and return WindowId.
     /// </summary>
-    public static int OpenWindow(GameObject parent)
+    static int OpenWindow(GameObject parent)
     {
         ConnectWindow window = CreateInstance<ConnectWindow>();
 
@@ -31,6 +31,32 @@ public class ConnectWindow : EditorWindow
         window.Show();
         return id++;
     }
+
+    public delegate void setObjmethod(GameObject to);
+
+    /// <summary>
+    /// Open ConnectWindow and run func
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="func"></param>
+    public static void Connect(GameObject parent, setObjmethod func)
+    {
+        TMP_EditorCoroutine.StartCoroutine(ConnectCoroutine(parent, func));
+    }
+    
+    static IEnumerator ConnectCoroutine(GameObject parent, setObjmethod func)
+    {
+        //ActiveEditorTracker.sharedTracker.isLocked = true;
+        int id = OpenWindow(parent);
+        while (cache[id].open)
+        {
+            yield return null;
+        }
+        func.Invoke(cache[id].selectedObj);
+        cache.DelWindowCache(id);
+        //ActiveEditorTracker.sharedTracker.isLocked = false;
+    }
+
 
     private void OnEnable()
     {
@@ -66,14 +92,22 @@ public class ConnectWindow : EditorWindow
                 warn = true;
             }
             else
-	        {
+            {
                 warn = false;
                 cache[my_id].selectedObj = tmp;
-			    this.Close();
-	        }
+                returnSelection();
+                this.Close();
+            }
 	    }
 	    if (warn)
             DrawWarnMessage();
+    }
+
+    private void returnSelection()
+    {
+        Object[] lst = new Object[1];
+        lst[0] = parentObj;
+        Selection.objects = lst;
     }
 
     private void DrawTutorialMessage()
