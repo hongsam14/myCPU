@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System.Collections;
 
 [CustomEditor(typeof(Gate))]
 public class GateEditor : Editor
@@ -8,11 +9,14 @@ public class GateEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        //base.OnInspectorGUI();
+#if false
+        base.OnInspectorGUI();
+#else
         serializedObject.Update();
         origin = (Gate)target;
         DrawGateSection();
         serializedObject.ApplyModifiedProperties();
+#endif
     }
 
 
@@ -24,11 +28,8 @@ public class GateEditor : Editor
         DrawGateHeader();
 
         origin.gateType = (Types.GateType)EditorGUILayout.EnumPopup(origin.gateType);
-
-        //EditorGUILayout.BeginHorizontal();
         EditorList.Show(serializedObject.FindProperty("inputs"), InputButton);
         EditorList.Show(serializedObject.FindProperty("outputs"), OutputButton);
-        //EditorGUILayout.EndHorizontal();
     }
 
     void DrawGateHeader()
@@ -39,6 +40,7 @@ public class GateEditor : Editor
 
     void InputButton(SerializedProperty list, int index)
     {
+        return;
         if (origin.inputs[index] == null)
         {
             if (GUILayout.Button("connect"))
@@ -57,6 +59,7 @@ public class GateEditor : Editor
 
     void OutputButton(SerializedProperty list, int index)
     {
+        return;
         if (origin.outputs[index] == null)
         {
             if (GUILayout.Button("connect"))

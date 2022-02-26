@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using BaseModel;
+using System.Reflection;
 
 public class ConnectPortWindow : EditorWindow
 {
     public bool open { get; private set; }
     public Port selectedPort { get; private set; }
+    public GameObject selectedObj { get; private set; }
 
     private Port parentPort;
     private GameObject parentObj;
-    private GameObject selected;
     private bool warn = false;
 
     public static ConnectPortWindow OpenWindow(Port parentPort, GameObject parentObj)
@@ -42,7 +43,7 @@ public class ConnectPortWindow : EditorWindow
     private void OnGUI()
     {
         DrawTutorialMessage();
-        if (selected == null)
+        if (selectedObj == null)
         {
             if (GUILayout.Button("Select"))
             {
@@ -64,7 +65,7 @@ public class ConnectPortWindow : EditorWindow
                 else
                 {
                     warn = false;
-                    selected = tmp;
+                    selectedObj = tmp;
                 }
             }
             if (warn)
@@ -72,10 +73,10 @@ public class ConnectPortWindow : EditorWindow
         }
         else
         {
-            DrawPortInfo(selected);
+            DrawPortInfo(selectedObj);
             if (GUILayout.Button("Deselect"))
             {
-                selected = null;
+                selectedObj = null;
             }
         }
     }
@@ -108,9 +109,11 @@ public class ConnectPortWindow : EditorWindow
         else
         {
             portList = select.GetComponent<BaseObject>().Inputs;
-            portList.AddRange(select.GetComponent<BaseObject>().Sels);
+            List<Port> selList = select.GetComponent<BaseObject>().Sels;
+            if (selList != null)
+                portList.AddRange(select.GetComponent<BaseObject>().Sels);
         }
-        if (portList != null)
+        if (portList != null && portList.Count > 0)
         {
             for (int i = 0; i < portList.Count; i++)
             {
@@ -131,6 +134,10 @@ public class ConnectPortWindow : EditorWindow
                 }
                 EditorGUILayout.EndHorizontal();
             }
+        }
+        else
+        {
+            EditorGUILayout.HelpBox("There is no Port in this object", MessageType.Warning);
         }
     }
 }
