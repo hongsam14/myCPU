@@ -7,7 +7,7 @@ using UnityEngine;
 public class Data : MonoBehaviour
 {
 
-    private bool _bit = false;
+    private bool _bit;
     private SpriteRenderer spriteRenderer;
     private Wire wire;
     public bool Bit
@@ -37,5 +37,6 @@ public class Data : MonoBehaviour
         gameObject.name = "?";
         spriteRenderer = GetComponent<SpriteRenderer>();
         wire = GetComponent<Wire>();
+        Bit = false;
     }
 }

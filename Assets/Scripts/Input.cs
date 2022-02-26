@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Input : Data
 {
-    public bool input = false;
-
-    void FixedUpdate()
+    private void OnMouseDown()
     {
-        Bit = input;
+        Debug.Log("click");
+        Bit = !Bit;
     }
 }
