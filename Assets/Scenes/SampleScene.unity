@@ -302,10 +302,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd251ef5901746e39de2e5d20527fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputs:
-  - {fileID: 1683245426}
-  - {fileID: 1529923382}
-  outPortCount: 0
+  <inputs>k__BackingField:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  <outputs>k__BackingField: []
 --- !u!212 &1480192656
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -647,10 +648,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd251ef5901746e39de2e5d20527fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputs:
-  - {fileID: 1910263446}
-  - {fileID: 1529923382}
-  outPortCount: 0
+  <inputs>k__BackingField:
+  - {fileID: 0}
+  <outputs>k__BackingField:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!212 &2143169812
 SpriteRenderer:
   m_ObjectHideFlags: 0
