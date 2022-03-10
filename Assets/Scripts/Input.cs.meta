@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/Gate.cs.meta
 guid: 94a3febdf8d6d4902a40486cec9d568e
+=======
+guid: 378e4048dd78d40fa8936fa1cd46009e
+>>>>>>> 1968d557a64881d69e2effab9fffc0d2a99994ad:Assets/Scripts/Input.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

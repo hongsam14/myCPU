@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using BaseModel;
+using System;
 
 [CustomEditor(typeof(BaseObject))]
 public class BaseObjectEditor : Editor
@@ -28,7 +29,7 @@ public class BaseObjectEditor : Editor
     {
         EditorGUILayout.BeginVertical("Box");
         GUILayout.Label("In", EditorStyles.boldLabel);
-        origin.InputSize = EditorGUILayout.IntSlider(origin.InputSize, 0, 10);
+        //origin.InputSize = EditorGUILayout.IntSlider(origin.InputSize, 0, 10);
         for (int i = 0; i < origin.Inputs.Count; i++)
         {
             EditorGUILayout.BeginHorizontal("Box");
@@ -42,7 +43,8 @@ public class BaseObjectEditor : Editor
             }
             else
             {
-                GUILayout.Label(origin.Inputs[i].From.ToString());
+                GUILayout.Label("from");
+                GUILayout.Label(String.Format("{0}.{1}", origin.Inputs[i].From.obj.name, origin.Inputs[i].From.ToString()));
                 if (GUILayout.Button("Disconnect"))
                 {
                     origin.Inputs[i].Disconnect();
@@ -57,7 +59,7 @@ public class BaseObjectEditor : Editor
     {
         EditorGUILayout.BeginVertical("Box");
         GUILayout.Label("Sel", EditorStyles.boldLabel);
-        origin.SelSize = EditorGUILayout.IntSlider(origin.SelSize, 0, 10);
+        //origin.SelSize = EditorGUILayout.IntSlider(origin.SelSize, 0, 10);
         for (int i = 0; i < origin.Sels.Count; i++)
         {
             EditorGUILayout.BeginHorizontal("Box");
@@ -71,7 +73,8 @@ public class BaseObjectEditor : Editor
             }
             else
             {
-                GUILayout.Label(origin.Sels[i].From.ToString());
+                GUILayout.Label("from");
+                GUILayout.Label(String.Format("{0}.{1}", origin.Sels[i].From.obj.name, origin.Sels[i].From.ToString()));
                 if (GUILayout.Button("Disconnect"))
                 {
                     origin.Sels[i].Disconnect();
@@ -86,7 +89,7 @@ public class BaseObjectEditor : Editor
     {
         EditorGUILayout.BeginVertical("Box");
         GUILayout.Label("Out", EditorStyles.boldLabel);
-        origin.OutputSize = EditorGUILayout.IntSlider(origin.OutputSize, 0, 10);
+        //origin.OutputSize = EditorGUILayout.IntSlider(origin.OutputSize, 0, 10);
         for (int i = 0; i < origin.Outputs.Count; i++)
         {
             EditorGUILayout.BeginHorizontal("Box");
@@ -100,7 +103,8 @@ public class BaseObjectEditor : Editor
             }
             else
             {
-                GUILayout.Label(":" + origin.Outputs[i].From.ToString());
+                GUILayout.Label("to");
+                GUILayout.Label(String.Format("{0}.{1}", origin.Outputs[i].To.obj.name, origin.Outputs[i].To.ToString()));
                 if (GUILayout.Button("Disconnect"))
                 {
                     origin.Outputs[i].Disconnect();
