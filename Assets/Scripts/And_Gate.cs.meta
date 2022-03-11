@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scripts/ConnectData.cs.meta
+guid: a9256b5069c844c80b2982d2cf0642f1
+=======
 guid: f15fddc073b2f4d799e5d9127cd2e620
+>>>>>>> 1968d557a64881d69e2effab9fffc0d2a99994ad:Assets/Scripts/And_Gate.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

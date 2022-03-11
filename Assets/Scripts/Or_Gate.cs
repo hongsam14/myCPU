@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class And_Gate : MonoBehaviour
+public class Or_Gate : MonoBehaviour
 {
     public Data input_a = null;
     public Data input_b = null;
@@ -13,7 +13,7 @@ public class And_Gate : MonoBehaviour
     Wire in_a_wire = null;
     Wire in_b_wire = null;
     SpriteRenderer spriteRenderer;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +55,7 @@ public class And_Gate : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        output.Bit = input_a.Bit & input_b.Bit;
+        output.Bit = input_a.Bit | input_b.Bit;
         if (output.Bit == true)
         {
             out_wire.ChangeColor(Color.yellow);
