@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(LineRenderer))]
 public class Wire : MonoBehaviour
 {
-    LineRenderer lineRenderer;
+    public GameObject wireObject;
+    private List<LineRenderer> wires;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        wires = new List<LineRenderer>();
     }
 
-    public void DrawLine(Vector3 from, Vector3 to)
+    public void DrawLine(int index, Vector3 from, Vector3 to)
     {
+        LineRenderer lineRenderer = wires[index];
+
         lineRenderer.positionCount = 4;
         lineRenderer.SetPosition(0, from);
 
@@ -24,9 +26,23 @@ public class Wire : MonoBehaviour
         lineRenderer.SetPosition(3, to);
     }
 
+    public int Init()
+    {
+        GameObject inst = Instantiate(wireObject, transform.position, Quaternion.identity) as GameObject;
+        inst.transform.parent = transform;
+
+        wires.Add(inst.GetComponent<LineRenderer>());
+        if (wires.Count > 0)
+            return wires.Count - 1;
+        return wires.Count;
+    }
+
     public void ChangeColor(Color color)
     {
-        lineRenderer.startColor = color;
-        lineRenderer.endColor = color;
+        for (int i = 0; i < wires.Count; i++)
+        {
+            wires[i].startColor = color;
+            wires[i].endColor = color;
+        }
     }
 }
