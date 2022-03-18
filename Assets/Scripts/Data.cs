@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Wire))]
 public class Data : MonoBehaviour
 {
 
@@ -32,11 +33,14 @@ public class Data : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
-        gameObject.name = "?";
         spriteRenderer = GetComponent<SpriteRenderer>();
         wire = GetComponent<Wire>();
-        Bit = false;
+    }
+
+    protected virtual void Start()
+    {
+        _bit = false;
     }
 }

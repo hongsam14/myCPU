@@ -17,9 +17,8 @@ public class Not_Gate : MonoBehaviour
         out_wire_index = 0;
 
     SpriteRenderer spriteRenderer;
-     
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         out_wire = GetComponent<Wire>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -27,7 +26,11 @@ public class Not_Gate : MonoBehaviour
             input_wire = input.GetComponent<Wire>();
         if (output)
             out_wire = output.GetComponent<Wire>();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         in_wire_index = input_wire.Init();
         out_wire_index = out_wire.Init();
     }

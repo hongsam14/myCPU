@@ -21,8 +21,7 @@ public class Xor_Gate : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         out_wire = transform.GetComponent<Wire>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -30,7 +29,11 @@ public class Xor_Gate : MonoBehaviour
             in_a_wire = input_a.GetComponent<Wire>();
         if (input_b)
             in_b_wire = input_b.GetComponent<Wire>();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         in_a_wire_index = in_a_wire.Init();
         in_b_wire_index = in_b_wire.Init();
         out_wire_index = out_wire.Init();
