@@ -33,7 +33,7 @@ public class Data : MonoBehaviour
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         wire = GetComponent<Wire>();
