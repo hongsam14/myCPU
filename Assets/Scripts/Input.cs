@@ -10,7 +10,6 @@ public class Input : Data
     
     private void OnMouseDown()
     {
-        Debug.Log("click");
         click = true;
     }
 

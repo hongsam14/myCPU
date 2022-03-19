@@ -6,20 +6,6 @@ using Types;
 
 public class GateDesignerWindow : EditorWindow
 {
-    /*
-    Texture2D headerTexture;
-    Texture2D gateSectionTexture;
-    Texture2D muxSectionTexture;
-
-    Color headerTextureColor = new Color(0.2f, 0.2f, 0.2f, 1f);
-    Color gateSectionTextureColor = new Color(0.4f, 0.4f, 0.4f, 1f);
-    Color muxSectionTextureColor = new Color(0.3f, 0.3f, 0.3f, 1.0f);
-    
-    Rect headerSection;
-    Rect gateSection;
-    Rect muxSection;
-    */
-
     static GateType gateType;
     static MuxType muxType;
 
@@ -46,32 +32,7 @@ public class GateDesignerWindow : EditorWindow
         //InitTextures();
         InitData();
     }
-    /// <summary>
-    /// initialize Texture2D values
-    /// </summary>
-    /*
-    void InitTextures()
-    {
-        if (!(headerTexture = Resources.Load<Texture2D>("icons/editor_header_gradient")))
-        {
-            headerTexture = new Texture2D(1, 1);
-            headerTexture.SetPixel(0, 0, headerTextureColor);
-            headerTexture.Apply();
-        }
-        if (!(gateSectionTexture = Resources.Load<Texture2D>("icons/editor_gateSection_gradient")))
-        {
-            gateSectionTexture = new Texture2D(1, 1);
-            gateSectionTexture.SetPixel(0, 0, gateSectionTextureColor);
-            gateSectionTexture.Apply();
-        }
-        if (!(muxSectionTexture = Resources.Load<Texture2D>("icons/editor_muxSection_gradient")))
-        {
-            muxSectionTexture = new Texture2D(1, 1);
-            muxSectionTexture.SetPixel(0, 0, muxSectionTextureColor);
-            muxSectionTexture.Apply();
-        }
-    }
-    */
+    
     /// <summary>
     /// read Gate, Mux Objects from resources
     /// </summary>
@@ -80,6 +41,7 @@ public class GateDesignerWindow : EditorWindow
         gateData = Resources.Load<GateData>("gateData/data/gate/gateData");
         muxData = Resources.Load<MuxData>("gateData/data/mux/muxData");
     }
+    
     /// <summary>
     /// similar with Update function. not called once per frame, called one or more times per interactions
     /// </summary>
@@ -93,52 +55,27 @@ public class GateDesignerWindow : EditorWindow
         GUILayout.EndHorizontal();
 
     }
-    /// <summary>
-    /// define rect values and point textures based on rects
-    /// </summary>
-    /*
-    void DrawLayouts() 
-    {
-        headerSection.position = new Vector2(0, 0);
-        headerSection.width = this.minSize.x;
-        headerSection.height = 50;
-
-        gateSection.position = new Vector2(0, headerSection.height);
-        gateSection.width = headerSection.width / 2;
-        gateSection.height = this.minSize.y - headerSection.height;
-
-        muxSection.position = new Vector2(gateSection.width, headerSection.height);
-        muxSection.width = headerSection.width / 2;
-        muxSection.height = this.minSize.y - headerSection.height;
-
-        GUI.DrawTexture(headerSection, headerTexture);
-        GUI.DrawTexture(gateSection, gateSectionTexture);
-        GUI.DrawTexture(muxSection, muxSectionTexture);
-    }
-    */
+    
     /// <summary>
     /// draw contents of header
     /// </summary>
     void DrawHeader()
     {
-        //GUILayout.BeginArea(headerSection);
         GUILayout.BeginVertical();
         GUILayout.Label("Gate Designer", EditorStyles.boldLabel);
         EditorGUILayout.Space();
         GUILayout.EndVertical();
-        //GUILayout.EndArea();
     }
+    
     /// <summary>
     /// draw contents of gate object
     /// </summary>
     void DrawGateSetting()
     {
-        //GUILayout.BeginArea(gateSection);
         GUILayout.BeginVertical("Box");
 
         GUILayout.Label("Gate", EditorStyles.boldLabel);
         EditorGUILayout.Space();
-        //GUILayout.FlexibleSpace();
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("type :");
@@ -167,15 +104,14 @@ public class GateDesignerWindow : EditorWindow
             }
         }
 
-        //GUILayout.EndArea();
         GUILayout.EndVertical();
     }
+    
     /// <summary>
     /// draw contents of mux object
     /// </summary>
     void DrawMuxSetting()
     {
-        //GUILayout.BeginArea(muxSection);
         GUILayout.BeginVertical("Box");
 
         GUILayout.Label("Multiplexor", EditorStyles.boldLabel);
@@ -202,7 +138,6 @@ public class GateDesignerWindow : EditorWindow
             }
         }
 
-        //GUILayout.EndArea();
         GUILayout.EndVertical();
     }
 }
