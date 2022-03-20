@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c141c1b00fc34985a6fb713f4773e37, type: 3}
   m_Name: gateData
   m_EditorClassIdentifier: 
-  notObject: {fileID: 2484561209932672510, guid: fa030f814825d48d0b0b6f5470a96b9e, type: 3}
-  orObject: {fileID: 192183123646553262, guid: a3be7a359d44d45589c2fe9f0994c043, type: 3}
-  andObject: {fileID: 8450143657715184888, guid: 07f1d765e32534aa69ff73371405499a, type: 3}
-  xorObject: {fileID: 8750517250966124761, guid: 15465871249f7461aabb77aa7d43f174, type: 3}
+  notObject: {fileID: 4079882941626018445, guid: 7766203f4bb504b538d5a1728dccee92, type: 3}
+  orObject: {fileID: 6704080576606621390, guid: e4663fc81b313473983a9d865fa2eacd, type: 3}
+  andObject: {fileID: 3051021812446542954, guid: eb0fef49ea61f42f0b587278e9d6a9b0, type: 3}
+  xorObject: {fileID: 3913237718637457811, guid: dcc30a755f5d8409f89166ae1ffd2613, type: 3}
