@@ -74,7 +74,10 @@ public class MultiBit_Data : MonoBehaviour
 
             Bits = input_Datas.Bits;
             foreach (bool i in _bits)
+            {
                 tmp |= i;
+            }
+
             if (!tmp)
                 wire.ChangeColor(Color.gray);
             else
