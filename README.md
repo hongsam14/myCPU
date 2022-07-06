@@ -5,6 +5,8 @@
 <img width="495" alt="스크린샷 2022-07-06 오전 11 31 21" src="https://user-images.githubusercontent.com/69339846/177459986-01875d7f-ca71-43e8-a60a-353f161948a3.png">
 유니티 prefab으로 논리 게이트를 구현
 
+## 부록
+
 ## 사용법
 
 ### GateDesigner
@@ -27,3 +29,7 @@ Data 프리팹을 통해 비트가 이동한다.
 ## Sample Scenes
 
 ### Basic Gate Scene
+기본 프리팹들이 존재하며, 사용법을 익힐 수 있다.
+
+### MultiBit Gate Scene
+기본 프리팹들과 멀티비트 프리팹을 사용하여 구현한 멀티비트게이트가 존재.
