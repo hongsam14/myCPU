@@ -1,10 +1,9 @@
 # myCPU
----
+
 ## 개요
 <img width="492" alt="스크린샷 2022-07-06 오전 11 32 35" src="https://user-images.githubusercontent.com/69339846/177459982-74858753-3814-4612-b8f5-f66c6d5734a6.png">
 <img width="495" alt="스크린샷 2022-07-06 오전 11 31 21" src="https://user-images.githubusercontent.com/69339846/177459986-01875d7f-ca71-43e8-a60a-353f161948a3.png">
 유니티 prefab으로 논리 게이트를 구현
----
 ## 사용법
 ### GateDesigner
 <img width="635" alt="스크린샷 2022-07-06 오후 12 24 00" src="https://user-images.githubusercontent.com/69339846/177461481-79aac07d-2882-4abf-8244-c058689f6cf0.png">
