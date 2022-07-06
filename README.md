@@ -6,6 +6,7 @@
 유니티 prefab으로 논리 게이트를 구현
 
 ## 부록
+https://github.com/hongsam14/myCPU/wiki
 
 ## 사용법
 
