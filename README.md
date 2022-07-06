@@ -18,8 +18,12 @@ Data 프리팹을 통해 비트가 이동한다.
 
 ### input port
 <img width="1084" alt="스크린샷 2022-07-06 오후 12 29 54" src="https://user-images.githubusercontent.com/69339846/177462976-fec940ca-1bfc-43e5-8af8-9769dc326ef7.png">
-인스팩터 창에서 inputdata부분에 Data프리팹을 넣어주면 된다.
+인스팩터 창에서 inputdata부분에 Data프리팹을 넣어주면 된다. 클릭을 통해 비트를 바꿀 수 있다.
 
 ### multibit 
 <img width="1080" alt="스크린샷 2022-07-06 오후 6 35 30" src="https://user-images.githubusercontent.com/69339846/177521433-8667f295-2b9d-44e6-800f-cccb53dc51cc.png">
 8비트의 정보가 multibit프리팹을 통해 이동한다.
+
+## Sample Scenes
+
+### Basic Gate Scene
